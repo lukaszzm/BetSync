@@ -13,7 +13,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password", placeholder: "Enter your password" },
       },
       async authorize(credentials) {
-        const res = await apiFetch(ROUTES.signIn, {
+        const res = await apiFetch(ROUTES.apiSignIn, {
           method: "POST",
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" },

@@ -1,6 +1,8 @@
 import { Logo } from "@/components/Logo";
+import { ROUTES } from "@/config/routes";
 import { Button } from "@ui/components/button";
 import { MoveRight } from "lucide-react";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -8,7 +10,9 @@ export default function Page() {
       <header className="absolute inset-x-0 top-0 z-50">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <Logo />
-          <Button size="lg">Login</Button>
+          <Button asChild size="lg">
+            <Link href={ROUTES.signIn}> Login</Link>
+          </Button>
         </nav>
       </header>
 
@@ -20,8 +24,8 @@ export default function Page() {
             </h1>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">Take charge of your finances with intuitive tools. Set limits, track expenses, and bet responsibly.</p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Button size="lg" className="font-semibold">
-                Get Started
+              <Button asChild size="lg" className="font-semibold">
+                <Link href={ROUTES.signUp}>Get Started</Link>
               </Button>
               <Button variant="link" size="lg" className="items-center gap-4 text-foreground">
                 Learn More
