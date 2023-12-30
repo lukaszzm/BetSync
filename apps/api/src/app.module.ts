@@ -1,7 +1,15 @@
 import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import config, { configSchema } from "./config/configuration";
 
 @Module({
-  imports: [],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [config],
+      validationSchema: configSchema,
+    }),
+  ],
   controllers: [],
   providers: [],
 })
