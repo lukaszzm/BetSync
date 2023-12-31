@@ -1,6 +1,6 @@
 import { ROUTES } from "@/config/routes";
 import Link from "next/link";
-import { LogoSvg } from "./LogoSvg";
+import { LogoSvg } from "@ui/components/logo-svg";
 
 export const Logo = () => {
   return (

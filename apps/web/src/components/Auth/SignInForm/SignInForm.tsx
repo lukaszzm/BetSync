@@ -1,14 +1,16 @@
 "use client";
 
-import { signInSchema } from "@/schemas/signInSchema";
-import { useForm } from "react-hook-form";
+import { type SignInValues, signInSchema } from "@/schemas/signInSchema";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@ui/components/form";
 import { Input } from "@ui/components/input";
 import { Button } from "@ui/components/button";
+import { Alert, AlertDescription } from "@ui/components/alert";
+import { useSignIn } from "@/hooks/useSignIn";
 
 export const SignInForm = () => {
-  const form = useForm({
+  const form = useForm<SignInValues>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
       email: "",
@@ -16,9 +18,9 @@ export const SignInForm = () => {
     },
   });
 
-  const onSubmit = () => {
-    // TODO: implement
-  };
+  const { signIn, error, isLoading } = useSignIn();
+
+  const onSubmit: SubmitHandler<SignInValues> = async values => await signIn(values);
 
   return (
     <Form {...form}>
@@ -43,13 +45,18 @@ export const SignInForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your password" {...field} />
+                <Input type="password" placeholder="Enter your password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button size="lg" type="submit" className="w-full">
+        {!!error && (
+          <Alert variant="destructive">
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+        <Button size="lg" type="submit" className="w-full" isLoading={isLoading}>
           Sign In
         </Button>
       </form>

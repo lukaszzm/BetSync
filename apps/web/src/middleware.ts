@@ -128,3 +128,5 @@ async function middleware(request: NextRequest) {
 }
 
 export default withAuth(middleware);
+
+export const config = { matcher: ["/dashboard/:path*"] };

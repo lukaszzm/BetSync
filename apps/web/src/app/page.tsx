@@ -2,9 +2,18 @@ import { Logo } from "@/components/Logo";
 import { ROUTES } from "@/config/routes";
 import { Button } from "@ui/components/button";
 import { MoveRight } from "lucide-react";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+export default async function Page() {
+  const session = await getServerSession(authOptions);
+
+  if (session) {
+    redirect(ROUTES.dashboard);
+  }
+
   return (
     <div className="min-h-screen bg-gradient-radial">
       <header className="absolute inset-x-0 top-0 z-50">
@@ -22,7 +31,9 @@ export default function Page() {
             <h1 className="text-4xl font-bold tracking-tight sm:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/75 pb-4 ">
               Elevate your betting game with BetSync
             </h1>
-            <p className="mt-6 text-lg leading-8 text-muted-foreground">Take charge of your finances with intuitive tools. Set limits, track expenses, and bet responsibly.</p>
+            <p className="mt-6 text-lg leading-8 text-muted-foreground">
+              Take charge of your finances with intuitive tools. Set limits, track expenses, and bet responsibly.
+            </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Button asChild size="lg" className="font-semibold">
                 <Link href={ROUTES.signUp}>Get Started</Link>

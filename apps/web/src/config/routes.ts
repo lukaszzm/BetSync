@@ -7,6 +7,7 @@ const APP_ROUTES = {
   home: "/",
   signIn: "/sign-in",
   signUp: "/sign-up",
+  dashboard: "/dashboard",
 } as const satisfies Record<string, string>;
 
 export const ROUTES = {
