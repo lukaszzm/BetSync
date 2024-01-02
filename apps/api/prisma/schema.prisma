@@ -43,6 +43,7 @@ model Bet {
   bookmakerId String
   stake       Int
   potentialReturn       Int
+  prize       Int 
   status      BetStatus @default(pending)
   link        String
 }

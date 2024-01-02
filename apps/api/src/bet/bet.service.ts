@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateBetDto } from "./dto/create-bet.dto";
 import { PrismaService } from "src/prisma.service";
 import { UserService } from "src/user/user.service";
@@ -16,6 +16,7 @@ export class BetService {
     const newBet = await this.prisma.bet.create({
       data: {
         ...data,
+        prize: data.potentialReturn - data.stake,
         user: {
           connect: {
             id: userId,
@@ -49,7 +50,7 @@ export class BetService {
   }
 
   async getLast(userId: string) {
-    return await this.prisma.bet.findFirst({
+    const lastBet = await this.prisma.bet.findFirst({
       where: {
         userId,
       },
@@ -57,17 +58,29 @@ export class BetService {
         createdAt: "desc",
       },
     });
+
+    if (!lastBet) {
+      throw new NotFoundException();
+    }
+
+    return lastBet;
   }
 
   async getBest(userId: string) {
-    return await this.prisma.bet.findFirst({
+    const bestBet = await this.prisma.bet.findFirst({
       where: {
         userId,
         status: "won",
       },
       orderBy: {
-        potentialReturn: "desc",
+        prize: "desc",
       },
     });
+
+    if (!bestBet) {
+      throw new NotFoundException();
+    }
+
+    return bestBet;
   }
 }
