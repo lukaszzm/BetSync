@@ -41,8 +41,8 @@ model Bet {
   userId      String
   bookmaker   Bookmaker @relation(fields: [bookmakerId], references: [id])
   bookmakerId String
-  price       Int
-  toWin       Int
+  stake       Int
+  potentialReturn       Int
   status      BetStatus @default(pending)
   link        String
 }

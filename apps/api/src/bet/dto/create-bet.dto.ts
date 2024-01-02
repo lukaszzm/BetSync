@@ -12,12 +12,12 @@ export class CreateBetDto {
   @Type(() => Number)
   @IsNumber()
   @IsPositive()
-  readonly price: number;
+  readonly stake: number;
 
   @Type(() => Number)
   @IsNumber()
   @IsPositive()
-  readonly toWin: number;
+  readonly potentialReturn: number;
 
   @IsOptional()
   @IsEnum(BetStatus)
