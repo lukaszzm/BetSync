@@ -2,19 +2,11 @@
 
 import { ROUTES } from "@/config/routes";
 import { DEFAULT_ERROR_MESSAGE } from "@/constants";
+import { ServerAction } from "@/interfaces/server-action";
 import { SignUpValues } from "@/schemas/signUpSchema";
 import { apiFetch } from "@/utils/apiFetch";
 
-type SignUpResponse =
-  | {
-      ok: true;
-    }
-  | {
-      ok: false;
-      message: string;
-    };
-
-export const signUp = async (values: SignUpValues): Promise<SignUpResponse> => {
+export const signUp: ServerAction<SignUpValues, string> = async values => {
   const res = await apiFetch(ROUTES.apiSignUp, {
     method: "POST",
     headers: {
@@ -25,8 +17,8 @@ export const signUp = async (values: SignUpValues): Promise<SignUpResponse> => {
 
   if (!res.ok) {
     const data = await res.json();
-    return { ok: false, message: data.message ?? DEFAULT_ERROR_MESSAGE };
+    return { ok: false, error: data.message ?? DEFAULT_ERROR_MESSAGE };
   }
 
-  return { ok: true };
+  return { ok: true, data: "Success" };
 };
