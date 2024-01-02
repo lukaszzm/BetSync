@@ -7,6 +7,7 @@ import type { NewBetValues } from "@/schemas/newBetSchema";
 import { apiFetch } from "@/utils/apiFetch";
 import { getApiError } from "@/utils/getApiError";
 import { getServerSession } from "next-auth";
+import { revalidateTag } from "next/cache";
 
 export const addNewBet: ServerAction<NewBetValues, string> = async values => {
   const session = await getServerSession(authOptions);
@@ -26,6 +27,8 @@ export const addNewBet: ServerAction<NewBetValues, string> = async values => {
       error: await getApiError(res),
     };
   }
+
+  revalidateTag("bet");
 
   return {
     ok: true,

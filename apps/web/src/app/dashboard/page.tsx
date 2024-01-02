@@ -1,3 +1,5 @@
+import { Summary } from "@/components/Summary";
+
 export default function DashboardPage() {
-  return <h1>Dashboard</h1>;
+  return <Summary />;
 }

@@ -3,6 +3,9 @@ const API_ROUTES = {
   apiSignUp: "/auth/sign-up",
   refreshToken: "/auth/refresh",
   bet: "/bet",
+  lastBet: "/bet/last",
+  best: "/bet/best",
+  userInfo: "/user/me",
 } as const satisfies Record<string, string>;
 
 const APP_ROUTES = {
