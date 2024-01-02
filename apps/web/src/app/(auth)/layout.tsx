@@ -1,8 +1,8 @@
 import { LogoSvg } from "@ui/components/logo-svg";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { ROUTES } from "@/config/routes";
+import { authOptions } from "@/config/auth";
 
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions);

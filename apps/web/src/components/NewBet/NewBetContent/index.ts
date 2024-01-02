@@ -1,0 +1,1 @@
+export { NewBetContent } from "./NewBetContent";

@@ -2,6 +2,7 @@ const API_ROUTES = {
   apiSignIn: "/auth/sign-in",
   apiSignUp: "/auth/sign-up",
   refreshToken: "/auth/refresh",
+  bet: "/bet",
 } as const satisfies Record<string, string>;
 
 const APP_ROUTES = {

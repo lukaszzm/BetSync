@@ -1,10 +1,10 @@
 import { Logo } from "@/components/Logo";
+import { authOptions } from "@/config/auth";
 import { ROUTES } from "@/config/routes";
 import { Button } from "@ui/components/button";
 import { MoveRight } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 
 export default async function Page() {

@@ -1,5 +1,5 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { SignOutButton } from "@/components/Auth/SignOutButton";
+import { authOptions } from "@/config/auth";
 import { ROUTES } from "@/config/routes";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import { Popover, PopoverTrigger, PopoverContent } from "@ui/components/popover";

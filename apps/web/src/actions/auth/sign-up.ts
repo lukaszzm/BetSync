@@ -1,10 +1,10 @@
 "use server";
 
 import { ROUTES } from "@/config/routes";
-import { DEFAULT_ERROR_MESSAGE } from "@/constants";
 import { ServerAction } from "@/interfaces/server-action";
 import { SignUpValues } from "@/schemas/signUpSchema";
 import { apiFetch } from "@/utils/apiFetch";
+import { getApiError } from "@/utils/getApiError";
 
 export const signUp: ServerAction<SignUpValues, string> = async values => {
   const res = await apiFetch(ROUTES.apiSignUp, {
@@ -16,8 +16,7 @@ export const signUp: ServerAction<SignUpValues, string> = async values => {
   });
 
   if (!res.ok) {
-    const data = await res.json();
-    return { ok: false, error: data.message ?? DEFAULT_ERROR_MESSAGE };
+    return { ok: false, error: await getApiError(res) };
   }
 
   return { ok: true, data: "Success" };
