@@ -1,5 +1,6 @@
 const API_ROUTES = {
   apiSignIn: "/auth/sign-in",
+  apiSignUp: "/auth/sign-up",
   refreshToken: "/auth/refresh",
 } as const satisfies Record<string, string>;
 

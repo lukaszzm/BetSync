@@ -1,40 +1,35 @@
 import { ROUTES } from "@/config/routes";
+import { CREDENTIALS_ERROR_MESSAGE, DEFAULT_ERROR_MESSAGE } from "@/constants";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-const DEFAULT_ERROR_MESSAGE = "Something went wrong";
-const CREDENTIALS_ERROR_MESSAGE = "Your email address or password is incorrect";
-
 export const useSignIn = () => {
   const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const signInHandler = async ({ email, password }: { email: string; password: string }) => {
+  const signInHandler = async (values: { email: string; password: string }) => {
     setError(null);
-    setIsLoading(true);
 
     try {
-      const response = await signIn("credentials", {
-        email,
-        password,
+      const res = await signIn("credentials", {
+        ...values,
         redirect: false,
         callbackUrl: searchParams.get("callbackUrl") ?? ROUTES.dashboard,
       });
 
-      if (!response) {
+      if (!res) {
         throw new Error(DEFAULT_ERROR_MESSAGE);
       }
 
-      if (!response.ok && response.error === "CredentialsSignin") {
+      if (!res.ok && res.error === "CredentialsSignin") {
         setError(CREDENTIALS_ERROR_MESSAGE);
       }
 
-      if (response.ok && response.url) {
-        router.replace(response.url);
+      if (res.ok && res.url) {
+        router.replace(res.url);
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -42,14 +37,11 @@ export const useSignIn = () => {
       } else {
         setError(DEFAULT_ERROR_MESSAGE);
       }
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return {
     error,
-    isLoading,
     signIn: signInHandler,
   };
 };

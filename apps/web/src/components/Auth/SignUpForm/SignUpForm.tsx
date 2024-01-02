@@ -5,10 +5,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@ui/components/form";
 import { Input } from "@ui/components/input";
 import { Button } from "@ui/components/button";
-import { signUpSchema } from "@/schemas/signUpSchema";
+import { ErrorAlert } from "@ui/components/error-alert";
+import { type SignUpValues, signUpSchema } from "@/schemas/signUpSchema";
+import type { SubmitHandler } from "react-hook-form";
+import { useSignUp } from "@/hooks/useSignUp";
 
 export const SignUpForm = () => {
-  const form = useForm({
+  const form = useForm<SignUpValues>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
@@ -17,15 +20,21 @@ export const SignUpForm = () => {
     },
   });
 
-  const onSubmit = () => {
-    // TODO: implement
-  };
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting },
+  } = form;
+
+  const { signUp, error } = useSignUp();
+
+  const onSubmit: SubmitHandler<SignUpValues> = async values => await signUp(values);
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 text-left">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 text-left">
         <FormField
-          control={form.control}
+          control={control}
           name="email"
           render={({ field }) => (
             <FormItem>
@@ -38,7 +47,7 @@ export const SignUpForm = () => {
           )}
         />
         <FormField
-          control={form.control}
+          control={control}
           name="name"
           render={({ field }) => (
             <FormItem>
@@ -51,7 +60,7 @@ export const SignUpForm = () => {
           )}
         />
         <FormField
-          control={form.control}
+          control={control}
           name="password"
           render={({ field }) => (
             <FormItem>
@@ -63,7 +72,8 @@ export const SignUpForm = () => {
             </FormItem>
           )}
         />
-        <Button size="lg" type="submit" className="w-full">
+        <ErrorAlert error={error} />
+        <Button size="lg" type="submit" className="w-full" isLoading={isSubmitting}>
           Sign Up
         </Button>
       </form>

@@ -6,8 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@ui/components/form";
 import { Input } from "@ui/components/input";
 import { Button } from "@ui/components/button";
-import { Alert, AlertDescription } from "@ui/components/alert";
 import { useSignIn } from "@/hooks/useSignIn";
+import { ErrorAlert } from "@ui/components/error-alert";
 
 export const SignInForm = () => {
   const form = useForm<SignInValues>({
@@ -18,15 +18,21 @@ export const SignInForm = () => {
     },
   });
 
-  const { signIn, error, isLoading } = useSignIn();
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting },
+  } = form;
+
+  const { signIn, error } = useSignIn();
 
   const onSubmit: SubmitHandler<SignInValues> = async values => await signIn(values);
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 text-left">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 text-left">
         <FormField
-          control={form.control}
+          control={control}
           name="email"
           render={({ field }) => (
             <FormItem>
@@ -39,7 +45,7 @@ export const SignInForm = () => {
           )}
         />
         <FormField
-          control={form.control}
+          control={control}
           name="password"
           render={({ field }) => (
             <FormItem>
@@ -51,12 +57,8 @@ export const SignInForm = () => {
             </FormItem>
           )}
         />
-        {!!error && (
-          <Alert variant="destructive">
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
-        <Button size="lg" type="submit" className="w-full" isLoading={isLoading}>
+        <ErrorAlert error={error} />
+        <Button size="lg" type="submit" className="w-full" isLoading={isSubmitting}>
           Sign In
         </Button>
       </form>
