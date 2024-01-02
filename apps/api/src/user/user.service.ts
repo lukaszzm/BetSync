@@ -45,4 +45,30 @@ export class UserService {
       },
     });
   }
+
+  async incrementBalance(id: string, value: number) {
+    return await this.prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        balance: {
+          increment: value,
+        },
+      },
+    });
+  }
+
+  async decrementBalance(id: string, value: number) {
+    return await this.prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        balance: {
+          decrement: value,
+        },
+      },
+    });
+  }
 }

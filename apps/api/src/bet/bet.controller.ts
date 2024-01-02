@@ -18,4 +18,14 @@ export class BetController {
   async getBets(@AuthId() userId: string) {
     return this.betService.getAll(userId);
   }
+
+  @Get("last")
+  async getLastBet(@AuthId() userId: string) {
+    return this.betService.getLast(userId);
+  }
+
+  @Get("best")
+  async getBestBet(@AuthId() userId: string) {
+    return this.betService.getBest(userId);
+  }
 }

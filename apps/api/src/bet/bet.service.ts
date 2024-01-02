@@ -1,10 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { CreateBetDto } from "./dto/create-bet.dto";
 import { PrismaService } from "src/prisma.service";
+import { UserService } from "src/user/user.service";
 
 @Injectable()
 export class BetService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private userService: UserService,
+  ) {}
 
   async create(dto: CreateBetDto, userId: string) {
     const { bookmakerId, ...data } = dto;
@@ -25,6 +29,14 @@ export class BetService {
       },
     });
 
+    if (newBet.status === "won") {
+      await this.userService.incrementBalance(userId, newBet.potentialReturn - newBet.stake);
+    }
+
+    if (newBet.status === "lost") {
+      await this.userService.decrementBalance(userId, newBet.stake);
+    }
+
     return newBet;
   }
 
@@ -32,6 +44,29 @@ export class BetService {
     return await this.prisma.bet.findMany({
       where: {
         userId,
+      },
+    });
+  }
+
+  async getLast(userId: string) {
+    return await this.prisma.bet.findFirst({
+      where: {
+        userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  }
+
+  async getBest(userId: string) {
+    return await this.prisma.bet.findFirst({
+      where: {
+        userId,
+        status: "won",
+      },
+      orderBy: {
+        potentialReturn: "desc",
       },
     });
   }
