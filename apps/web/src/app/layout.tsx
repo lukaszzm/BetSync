@@ -1,7 +1,8 @@
 import "@ui/styles/globals.css";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import Providers from "./providers";
 import { Inter } from "next/font/google";
+import type { PropsWithChildren } from "react";
 
 export const metadata: Metadata = {
   title: "BetSync",
@@ -13,7 +14,7 @@ const inter = Inter({
   display: "swap",
 });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" className={inter.className}>
       <body>
