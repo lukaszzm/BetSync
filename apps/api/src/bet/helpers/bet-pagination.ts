@@ -4,6 +4,7 @@ export type BetPaginationOptions = {
   where?: Prisma.BetWhereInput;
   orderBy?: Prisma.BetOrderByWithRelationInput;
   page?: number;
+  perPage?: number;
 };
 
 export const defaultBetPaginationOptions = {
@@ -12,4 +13,5 @@ export const defaultBetPaginationOptions = {
   },
   where: {},
   page: 1,
+  perPage: 10,
 } as const satisfies BetPaginationOptions;

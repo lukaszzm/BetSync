@@ -47,7 +47,7 @@ export class BetService {
   }
 
   async getAll(userId: string, options: BetPaginationOptions = defaultBetPaginationOptions): Promise<PaginatorResult<Bet>> {
-    const { orderBy, where, page } = options;
+    const { orderBy, where, page, perPage } = options;
 
     return await paginate(
       this.prisma.bet,
@@ -57,9 +57,13 @@ export class BetService {
           ...where,
         },
         orderBy,
+        include: {
+          bookmaker: true,
+        },
       },
       {
         page,
+        perPage,
       },
     );
   }

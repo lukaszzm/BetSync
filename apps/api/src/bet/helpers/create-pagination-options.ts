@@ -2,7 +2,7 @@ import { PageOptionsDto } from "../dto/page-options.dto";
 import { BetPaginationOptions } from "./bet-pagination";
 
 export function createPaginationOptions(query: PageOptionsDto): BetPaginationOptions {
-  const { order, page, status, bookmakerId } = query;
+  const { order, page, perPage, status, bookmakerId } = query;
 
   return {
     where: {
@@ -10,8 +10,9 @@ export function createPaginationOptions(query: PageOptionsDto): BetPaginationOpt
       bookmakerId,
     },
     orderBy: {
-      createdAt: order,
+      createdAt: order ?? "desc",
     },
     page,
+    perPage,
   };
 }
