@@ -4,6 +4,7 @@ import config, { configSchema } from "./config/configuration";
 import { UserModule } from "./user/user.module";
 import { AuthModule } from "./auth/auth.module";
 import { BetModule } from './bet/bet.module';
+import { BookmakerModule } from './bookmaker/bookmaker.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { BetModule } from './bet/bet.module';
     UserModule,
     AuthModule,
     BetModule,
+    BookmakerModule,
   ],
   controllers: [],
   providers: [],
