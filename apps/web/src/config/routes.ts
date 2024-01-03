@@ -7,6 +7,7 @@ const API_ROUTES = {
   best: "/bet/best",
   userInfo: "/user/me",
   userLimit: "/user/limit",
+  bookmaker: "/bookmaker",
 } as const satisfies Record<string, string>;
 
 const APP_ROUTES = {
