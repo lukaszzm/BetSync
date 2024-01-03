@@ -24,7 +24,6 @@ export const NewBetForm = ({ bookmakers, onAdd }: NewBetFromProps) => {
   const form = useForm<NewBetValues>({
     resolver: zodResolver(newBetSchema),
     defaultValues: {
-      link: "",
       stake: 10,
       potentialReturn: 50,
     },
@@ -48,20 +47,6 @@ export const NewBetForm = ({ bookmakers, onAdd }: NewBetFromProps) => {
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={control}
-          name="link"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Link</FormLabel>
-              <FormControl>
-                <Input placeholder="Paste link to coupon preview" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <FormField
           control={control}
           name="bookmakerId"

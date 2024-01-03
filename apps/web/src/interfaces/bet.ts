@@ -11,7 +11,6 @@ export interface Bet {
   potentialReturn: number;
   status: BetStatus;
   prize: number;
-  link: string;
 }
 
 export interface BetWithBookmaker extends Bet {
