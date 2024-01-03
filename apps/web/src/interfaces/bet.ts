@@ -1,4 +1,5 @@
 import { BetStatus } from "@/config/betStatus";
+import type { Bookmaker } from "./bookmaker";
 
 export interface Bet {
   id: string;
@@ -11,4 +12,8 @@ export interface Bet {
   status: BetStatus;
   prize: number;
   link: string;
+}
+
+export interface BetWithBookmaker extends Bet {
+  bookmaker: Bookmaker;
 }

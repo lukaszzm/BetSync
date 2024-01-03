@@ -1,0 +1,1 @@
+export { LastBetsSkeleton } from "./LastBetsSkeleton";

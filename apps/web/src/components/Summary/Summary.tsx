@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 export const Summary = () => {
   return (
-    <div className="flex w-full gap-4 max-w-5xl">
+    <div className="w-full flex gap-4">
       <Suspense fallback={<SummarySkeleton />}>
         <SummaryContent />
       </Suspense>

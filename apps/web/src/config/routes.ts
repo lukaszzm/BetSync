@@ -13,6 +13,7 @@ const APP_ROUTES = {
   signIn: "/sign-in",
   signUp: "/sign-up",
   dashboard: "/dashboard",
+  bets: "/dashboard/bets",
 } as const satisfies Record<string, string>;
 
 export const ROUTES = {
