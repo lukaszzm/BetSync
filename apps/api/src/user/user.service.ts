@@ -86,13 +86,13 @@ export class UserService {
     });
   }
 
-  async setLimit(id: string, newLimit: number) {
+  async setLimit(id: string, limit: number) {
     return await this.prisma.user.update({
       where: {
         id,
       },
       data: {
-        limit: newLimit,
+        limit,
       },
     });
   }

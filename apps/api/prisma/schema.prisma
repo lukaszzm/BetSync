@@ -17,7 +17,6 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  image     String?
   limit     Int?
   balance   Int      @default(0)
   Bet       Bet[]
@@ -29,7 +28,6 @@ model Bookmaker {
   updatedAt DateTime @updatedAt
   name      String
   domain    String
-  color     String
   Bet       Bet[]
 }
 
@@ -45,7 +43,6 @@ model Bet {
   potentialReturn       Int
   prize       Int 
   status      BetStatus @default(pending)
-  link        String
 }
 
 enum BetStatus {
