@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@ui/components/button";
 import { signOut } from "next-auth/react";
 import {
   AlertDialog,
@@ -14,15 +13,15 @@ import {
   AlertDialogAction,
 } from "@ui/components/alert-dialog";
 import { LogOut } from "lucide-react";
+import { MenuButton } from "@ui/components/menu-button";
 
-export const SignOutButton = () => {
+export const SignOut = () => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" className="flex gap-3">
+        <MenuButton className="rounded-b-none" icon={<LogOut className="w-4 h-4" />}>
           Sign Out
-          <LogOut className="w-4 h-4" />
-        </Button>
+        </MenuButton>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

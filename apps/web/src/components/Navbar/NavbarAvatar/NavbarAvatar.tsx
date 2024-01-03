@@ -1,19 +1,13 @@
-import { SignOutButton } from "@/components/Auth/SignOutButton";
-import { authOptions } from "@/config/auth";
-import { ROUTES } from "@/config/routes";
+import { getUserInfo } from "@/actions/user/get-user-info";
+import { SignOut } from "@/components/Auth/SignOut";
+import { UserLimits } from "@/components/UserLimits";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import { Popover, PopoverTrigger, PopoverContent } from "@ui/components/popover";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 
 export const NavbarAvatar = async () => {
-  const session = await getServerSession(authOptions);
+  const user = await getUserInfo();
 
-  if (!session) {
-    redirect(ROUTES.signIn);
-  }
-
-  const avatarFallback = session.user.name.charAt(0).toUpperCase();
+  const avatarFallback = user.name.charAt(0).toUpperCase();
 
   return (
     <Popover>
@@ -23,8 +17,9 @@ export const NavbarAvatar = async () => {
           <AvatarFallback className="bg-purple-600">{avatarFallback}</AvatarFallback>
         </Avatar>
       </PopoverTrigger>
-      <PopoverContent className="p-0 w-auto mr-6">
-        <SignOutButton />
+      <PopoverContent className="p-0 max-w-36 mr-6">
+        <UserLimits currentLimit={user.limit} />
+        <SignOut />
       </PopoverContent>
     </Popover>
   );
