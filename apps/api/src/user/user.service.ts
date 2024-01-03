@@ -1,5 +1,5 @@
 import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
-import { PrismaService } from "src/prisma.service";
+import { PrismaService } from "src/providers/prisma/prisma.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { hash } from "bcrypt";
 

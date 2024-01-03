@@ -1,7 +1,12 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateBetDto } from "./dto/create-bet.dto";
-import { PrismaService } from "src/prisma.service";
+import { PrismaService } from "src/providers/prisma/prisma.service";
 import { UserService } from "src/user/user.service";
+import { Bet } from "@prisma/client";
+import { PaginatorResult, paginator } from "src/providers/prisma/paginator";
+import { BetPaginationOptions, defaultBetPaginationOptions } from "./helpers/bet-pagination";
+
+const paginate = paginator({ perPage: 10 });
 
 @Injectable()
 export class BetService {
@@ -10,7 +15,7 @@ export class BetService {
     private userService: UserService,
   ) {}
 
-  async create(dto: CreateBetDto, userId: string) {
+  async create(dto: CreateBetDto, userId: string): Promise<Bet> {
     const { bookmakerId, ...data } = dto;
 
     const newBet = await this.prisma.bet.create({
@@ -41,15 +46,25 @@ export class BetService {
     return newBet;
   }
 
-  async getAll(userId: string) {
-    return await this.prisma.bet.findMany({
-      where: {
-        userId,
+  async getAll(userId: string, options: BetPaginationOptions = defaultBetPaginationOptions): Promise<PaginatorResult<Bet>> {
+    const { orderBy, where, page } = options;
+
+    return await paginate(
+      this.prisma.bet,
+      {
+        where: {
+          userId,
+          ...where,
+        },
+        orderBy,
       },
-    });
+      {
+        page,
+      },
+    );
   }
 
-  async getLast(userId: string) {
+  async getLast(userId: string): Promise<Bet> {
     const lastBet = await this.prisma.bet.findFirst({
       where: {
         userId,
@@ -66,7 +81,7 @@ export class BetService {
     return lastBet;
   }
 
-  async getBest(userId: string) {
+  async getBest(userId: string): Promise<Bet> {
     const bestBet = await this.prisma.bet.findFirst({
       where: {
         userId,

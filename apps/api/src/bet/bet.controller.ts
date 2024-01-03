@@ -1,8 +1,10 @@
-import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query, UseGuards } from "@nestjs/common";
 import { JwtGuard } from "src/auth/guards/jwt.guard";
 import { CreateBetDto } from "./dto/create-bet.dto";
 import { AuthId } from "src/auth/decorators/auth.decorator";
 import { BetService } from "./bet.service";
+import { PageOptionsDto } from "./dto/page-options.dto";
+import { createPaginationOptions } from "./helpers/create-pagination-options";
 
 @UseGuards(JwtGuard)
 @Controller("bet")
@@ -15,8 +17,8 @@ export class BetController {
   }
 
   @Get()
-  async getBets(@AuthId() userId: string) {
-    return this.betService.getAll(userId);
+  async getBets(@AuthId() userId: string, @Query() query: PageOptionsDto) {
+    return this.betService.getAll(userId, createPaginationOptions(query));
   }
 
   @Get("last")
