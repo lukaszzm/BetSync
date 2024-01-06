@@ -14,12 +14,13 @@ import {
 } from "@ui/components/alert-dialog";
 import { LogOut } from "lucide-react";
 import { MenuButton } from "@ui/components/menu-button";
+import { forwardRef } from "react";
 
-export const SignOut = () => {
+export const SignOut = forwardRef<HTMLButtonElement>((_, ref) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <MenuButton className="rounded-b-none" icon={<LogOut className="w-4 h-4" />}>
+        <MenuButton ref={ref} icon={<LogOut className="w-4 h-4" />}>
           Sign Out
         </MenuButton>
       </AlertDialogTrigger>
@@ -35,4 +36,4 @@ export const SignOut = () => {
       </AlertDialogContent>
     </AlertDialog>
   );
-};
+});
