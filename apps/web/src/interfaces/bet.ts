@@ -3,8 +3,8 @@ import type { Bookmaker } from "./bookmaker";
 
 export interface Bet {
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   userId: string;
   bookmakerId: string;
   stake: number;

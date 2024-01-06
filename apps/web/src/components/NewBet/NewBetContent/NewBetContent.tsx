@@ -1,8 +1,8 @@
 import { NewBetDialog } from "../NewBetDialog";
-import { getAllBookmakers } from "@/actions/bookmaker/get-bookmakers";
+import { getBookmakers } from "@/actions/bookmaker/get-bookmakers";
 
 export const NewBetContent = async () => {
-  const bookmakers = await getAllBookmakers();
+  const bookmakers = await getBookmakers();
 
   return <NewBetDialog bookmakers={bookmakers} />;
 };

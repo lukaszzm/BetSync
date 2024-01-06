@@ -1,0 +1,1 @@
+export { BetsTable } from "./BetsTable";
