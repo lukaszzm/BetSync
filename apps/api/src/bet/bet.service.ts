@@ -6,7 +6,7 @@ import { Bet } from "@prisma/client";
 import { PaginatorResult, paginator } from "src/providers/prisma/paginator";
 import { BetPaginationOptions, defaultBetPaginationOptions } from "./helpers/bet-pagination";
 
-const paginate = paginator({ perPage: 10 });
+const paginate = paginator({ perPage: 5 });
 
 @Injectable()
 export class BetService {

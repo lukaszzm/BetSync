@@ -13,5 +13,5 @@ export const defaultBetPaginationOptions = {
   },
   where: {},
   page: 1,
-  perPage: 10,
+  perPage: 5,
 } as const satisfies BetPaginationOptions;
