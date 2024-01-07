@@ -1,0 +1,1 @@
+export { PaginationPrev } from "./PaginationPrev";

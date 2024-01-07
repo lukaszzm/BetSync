@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export const LastBetsTable = async () => {
-  const res = await getBets({ perPage: 5 });
+  const res = await getBets();
   const bets = res.data;
 
   const betsCount = res.meta.total;

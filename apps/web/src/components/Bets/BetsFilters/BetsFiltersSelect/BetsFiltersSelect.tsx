@@ -2,8 +2,8 @@
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@ui/components/select";
 import { Label } from "@ui/components/label";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { BetsSearchParams } from "@/interfaces/search-params";
+import { useQueryParams } from "@/hooks/useQueryParams";
 
 interface BetsFilterSelectProps {
   param: keyof BetsSearchParams;
@@ -13,18 +13,10 @@ interface BetsFilterSelectProps {
 }
 
 export const BetsFiltersSelect = ({ param, label, values, placeholder }: BetsFilterSelectProps) => {
-  const searchParams = useSearchParams();
-  const pathName = usePathname();
-  const { replace } = useRouter();
-
-  const changeHandler = (value: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set(param, value);
-
-    replace(`${pathName}?${params.toString()}`);
-  };
-
+  const { searchParams, navigateWithQuery } = useQueryParams();
   const defaultValue = searchParams.get(param)?.toString();
+
+  const changeHandler = (value: string) => navigateWithQuery(param, value, ["page"]);
 
   return (
     <div className="flex flex-col gap-1">
