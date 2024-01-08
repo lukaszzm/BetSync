@@ -5,6 +5,7 @@ import { AuthId } from "src/auth/decorators/auth.decorator";
 import { BetService } from "./bet.service";
 import { PageOptionsDto } from "./dto/page-options.dto";
 import { createPaginationOptions } from "./helpers/create-pagination-options";
+import { UpdateStatusDto } from "./dto/update-status.dto";
 
 @UseGuards(JwtGuard)
 @Controller("bet")
@@ -29,5 +30,10 @@ export class BetController {
   @Get("best")
   async getBestBet(@AuthId() userId: string) {
     return this.betService.getBest(userId);
+  }
+
+  @Post("status")
+  async updateStatus(@Body() body: UpdateStatusDto, @AuthId() userId: string) {
+    return this.betService.updateStatus(body, userId);
   }
 }

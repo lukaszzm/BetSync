@@ -5,6 +5,7 @@ import { UserService } from "src/user/user.service";
 import { Bet } from "@prisma/client";
 import { PaginatorResult, paginator } from "src/providers/prisma/paginator";
 import { BetPaginationOptions, defaultBetPaginationOptions } from "./helpers/bet-pagination";
+import { UpdateStatusDto } from "./dto/update-status.dto";
 
 const paginate = paginator({ perPage: 5 });
 
@@ -101,5 +102,37 @@ export class BetService {
     }
 
     return bestBet;
+  }
+
+  async updateStatus(dto: UpdateStatusDto, userId: string): Promise<Bet> {
+    const { id, status } = dto;
+
+    const bet = await this.prisma.bet.findFirst({
+      where: {
+        id,
+        userId,
+      },
+    });
+
+    if (!bet) {
+      throw new NotFoundException();
+    }
+
+    if (status === "won") {
+      await this.userService.incrementBalance(userId, bet.potentialReturn - bet.stake);
+    }
+
+    if (status === "lost") {
+      await this.userService.decrementBalance(userId, bet.stake);
+    }
+
+    return await this.prisma.bet.update({
+      where: {
+        id,
+      },
+      data: {
+        status,
+      },
+    });
   }
 }
