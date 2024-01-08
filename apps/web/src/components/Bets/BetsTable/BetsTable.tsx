@@ -17,6 +17,7 @@ export const BetsTable = ({ bets }: BetsTableProps) => {
           <TableHead>Stake</TableHead>
           <TableHead>Potential Return</TableHead>
           <TableHead>Status</TableHead>
+          <TableHead>Update</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
