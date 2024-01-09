@@ -8,11 +8,12 @@ import { useQueryParams } from "@/hooks/useQueryParams";
 interface BetsFilterSelectProps {
   param: keyof BetsSearchParams;
   label: string;
+  name: string;
   values: Record<string, string>;
   placeholder?: string;
 }
 
-export const BetsFiltersSelect = ({ param, label, values, placeholder }: BetsFilterSelectProps) => {
+export const BetsFiltersSelect = ({ param, label, name, values, placeholder }: BetsFilterSelectProps) => {
   const { searchParams, navigateWithQuery } = useQueryParams();
   const defaultValue = searchParams.get(param)?.toString();
 
@@ -20,9 +21,11 @@ export const BetsFiltersSelect = ({ param, label, values, placeholder }: BetsFil
 
   return (
     <div className="flex flex-col gap-1">
-      <Label className="p-2">{label}</Label>
+      <Label htmlFor={name} className="p-2">
+        {label}
+      </Label>
       <Select key={defaultValue} onValueChange={changeHandler} defaultValue={defaultValue}>
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="sm:w-32 md:w-40" id={name} aria-label="Trigger filter select">
           <SelectValue placeholder={placeholder ?? "all"} />
         </SelectTrigger>
         <SelectContent>

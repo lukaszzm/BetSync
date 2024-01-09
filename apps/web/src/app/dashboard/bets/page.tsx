@@ -17,7 +17,7 @@ export default function DashboardBetsPage({ searchParams }: PageProps) {
   return (
     <>
       <Button asChild variant="ghost" size="icon" className="mr-auto">
-        <Link href={ROUTES.dashboard}>
+        <Link href={ROUTES.dashboard} aria-label="Back to dashboard">
           <ArrowLeft className="w-8 h-8" />
         </Link>
       </Button>

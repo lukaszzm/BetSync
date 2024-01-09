@@ -14,5 +14,5 @@ export const BetsFiltersBookmaker = ({ bookmakers }: BetsFiltersBookmakerProps) 
     {} as Record<string, string>,
   );
 
-  return <BetsFiltersSelect param="bookmakerId" label="By bookmaker" values={bookmakersValues} />;
+  return <BetsFiltersSelect param="bookmakerId" label="By bookmaker" name="filter-by-bookmaker" values={bookmakersValues} />;
 };

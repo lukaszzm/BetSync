@@ -15,7 +15,7 @@ export const StatusUpdate = ({ id, status }: StatusUpdateProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button size="icon" variant="ghost" disabled={status !== "pending"}>
+        <Button size="icon" variant="ghost" aria-label="Update bet status" disabled={status !== "pending"}>
           <Settings2 />
         </Button>
       </DialogTrigger>
@@ -23,9 +23,7 @@ export const StatusUpdate = ({ id, status }: StatusUpdateProps) => {
         <DialogHeader>
           <DialogTitle>Update Status</DialogTitle>
         </DialogHeader>
-        <div className="my-4">
-          <StatusUpdateForm id={id} status={status} onUpdate={() => setIsOpen(false)} />
-        </div>
+        <StatusUpdateForm id={id} status={status} onUpdate={() => setIsOpen(false)} />
       </DialogContent>
     </Dialog>
   );

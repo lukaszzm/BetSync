@@ -8,5 +8,5 @@ const statusValues = {
 } as const;
 
 export const BetsFiltersStatus = () => {
-  return <BetsFiltersSelect param="status" label="By status" values={statusValues} />;
+  return <BetsFiltersSelect param="status" label="By status" name="filter-by-status" values={statusValues} />;
 };

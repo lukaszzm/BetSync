@@ -19,7 +19,7 @@ export const LimitWarningAlert = async () => {
     <Alert variant="info" className="space-y-2">
       <AlertTitle>Important!</AlertTitle>
       <AlertDescription>Your balance is {fixedLevel.toFixed(2)}% of your limit. Please consider to stop betting.</AlertDescription>
-      <Progress value={fixedLevel} />
+      <Progress value={fixedLevel} aria-label="Percentage of current balance to the limit" />
     </Alert>
   );
 };

@@ -49,7 +49,7 @@ export const StatusUpdateForm = ({ id, status, onUpdate }: StatusUpdateFormProps
               <FormLabel>Status</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Trigger status select">
                     <SelectValue placeholder="Select current status" />
                   </SelectTrigger>
                 </FormControl>

@@ -6,5 +6,5 @@ enum Order {
 }
 
 export const BetsFiltersOrder = () => {
-  return <BetsFiltersSelect param="order" label="By creation date" values={Order} placeholder="default" />;
+  return <BetsFiltersSelect param="order" label="By creation date" name="sort-by-date" values={Order} placeholder="default" />;
 };

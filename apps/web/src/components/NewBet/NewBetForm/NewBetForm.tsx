@@ -55,7 +55,7 @@ export const NewBetForm = ({ bookmakers, onAdd }: NewBetFromProps) => {
               <FormLabel>Bookmaker</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Trigger bookmaker select">
                     <SelectValue placeholder="Select bookmaker from the list" />
                   </SelectTrigger>
                 </FormControl>
@@ -108,7 +108,7 @@ export const NewBetForm = ({ bookmakers, onAdd }: NewBetFromProps) => {
               <FormLabel>Status (optional)</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Trigger status select">
                     <SelectValue placeholder="Select current status" />
                   </SelectTrigger>
                 </FormControl>
