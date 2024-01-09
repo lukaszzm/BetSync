@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { CreateBetDto } from "./dto/create-bet.dto";
 import { PrismaService } from "src/providers/prisma/prisma.service";
 import { UserService } from "src/user/user.service";
@@ -116,6 +116,10 @@ export class BetService {
 
     if (!bet) {
       throw new NotFoundException();
+    }
+
+    if (bet.status !== "pending") {
+      throw new BadRequestException("Bet status cannot be updated");
     }
 
     if (status === "won") {
