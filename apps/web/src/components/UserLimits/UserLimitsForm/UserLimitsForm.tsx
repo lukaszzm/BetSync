@@ -2,8 +2,6 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Button } from "@ui/components/button";
 import { Input } from "@ui/components/input";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
-import { UserLimitsEditButton } from "../UserLimitsEditButton";
 import { useAction } from "@/hooks/useAction";
 import { type UserLimitValues, userLimitSchema } from "@/schemas/userLimitSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,8 +15,6 @@ interface UserLimitsFormProps {
 }
 
 export const UserLimitsForm = ({ currentLimit, onSave }: UserLimitsFormProps) => {
-  const [isDisabled, setIsDisabled] = useState(true);
-
   const form = useForm<UserLimitValues>({
     resolver: zodResolver(userLimitSchema),
     defaultValues: {
@@ -50,12 +46,9 @@ export const UserLimitsForm = ({ currentLimit, onSave }: UserLimitsFormProps) =>
           render={({ field }) => (
             <FormItem>
               <FormLabel>Current limit</FormLabel>
-              <div className="relative">
-                <FormControl>
-                  <Input {...field} type="number" min="0" className="relative" disabled={isDisabled} placeholder="Set your limit" />
-                </FormControl>
-                <UserLimitsEditButton isDisabled={isDisabled} setIsDisabled={setIsDisabled} />
-              </div>
+              <FormControl>
+                <Input {...field} type="number" placeholder="Set your limit" />
+              </FormControl>
               <FormDescription>We will inform you when you exceed your limit</FormDescription>
               <FormMessage />
             </FormItem>
