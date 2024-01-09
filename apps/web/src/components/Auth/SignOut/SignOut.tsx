@@ -24,7 +24,7 @@ export const SignOut = forwardRef<HTMLButtonElement>((_, ref) => {
           Sign Out
         </MenuButton>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="w-11/12 rounded-lg">
         <AlertDialogHeader>
           <AlertDialogTitle>Sign Out?</AlertDialogTitle>
           <AlertDialogDescription>Are you sure you want to sign out of your account?</AlertDialogDescription>

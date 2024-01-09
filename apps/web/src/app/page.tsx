@@ -2,7 +2,6 @@ import { Logo } from "@/components/Logo";
 import { authOptions } from "@/config/auth";
 import { ROUTES } from "@/config/routes";
 import { Button } from "@ui/components/button";
-import { MoveRight } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -35,12 +34,8 @@ export default async function Page() {
               Take charge of your finances with intuitive tools. Set limits, track expenses, and bet responsibly.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Button asChild size="lg" className="font-semibold">
+              <Button asChild size="lg" className="font-semibold px-16">
                 <Link href={ROUTES.signUp}>Get Started</Link>
-              </Button>
-              <Button variant="link" size="lg" className="items-center gap-4 text-foreground">
-                Learn More
-                <MoveRight />
               </Button>
             </div>
           </div>

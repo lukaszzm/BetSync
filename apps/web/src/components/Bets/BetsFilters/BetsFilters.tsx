@@ -11,7 +11,7 @@ export const BetsFilters = async ({}: BetsFiltersProps) => {
   const bookmakers = await getBookmakers();
 
   return (
-    <div className="w-full p-4 flex gap-8 items-end">
+    <div className="w-full flex-col sm:flex-row flex gap-4 sm:items-end">
       <BetsFiltersStatus />
       <BetsFiltersBookmaker bookmakers={bookmakers} />
       <BetsFiltersOrder />

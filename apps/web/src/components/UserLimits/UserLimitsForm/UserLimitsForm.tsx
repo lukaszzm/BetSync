@@ -57,7 +57,7 @@ export const UserLimitsForm = ({ currentLimit, onSave }: UserLimitsFormProps) =>
 
         <ErrorAlert error={error} />
 
-        <Button type="submit" disabled={!isDirty} isLoading={isLoading}>
+        <Button type="submit" disabled={!isDirty} isLoading={isLoading} className="w-full sm:w-auto">
           Save
         </Button>
       </form>

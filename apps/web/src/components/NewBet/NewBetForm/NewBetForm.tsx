@@ -74,6 +74,31 @@ export const NewBetForm = ({ bookmakers, onAdd }: NewBetFromProps) => {
 
         <FormField
           control={control}
+          name="status"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Status (optional)</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger aria-label="Trigger status select">
+                    <SelectValue placeholder="Select current status" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {Object.values(BetStatus).map(status => (
+                    <SelectItem key={status} value={status}>
+                      {status}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={control}
           name="stake"
           render={({ field }) => (
             <FormItem>
@@ -100,35 +125,10 @@ export const NewBetForm = ({ bookmakers, onAdd }: NewBetFromProps) => {
           )}
         />
 
-        <FormField
-          control={control}
-          name="status"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Status (optional)</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger aria-label="Trigger status select">
-                    <SelectValue placeholder="Select current status" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {Object.values(BetStatus).map(status => (
-                    <SelectItem key={status} value={status}>
-                      {status}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <ErrorAlert error={error} />
 
         <Button type="submit" className="w-full" isLoading={isLoading}>
-          Submit
+          Add
         </Button>
       </form>
     </Form>

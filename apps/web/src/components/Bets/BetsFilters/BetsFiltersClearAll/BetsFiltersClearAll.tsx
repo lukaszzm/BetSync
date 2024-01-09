@@ -12,7 +12,7 @@ export const BetsFiltersClearAll = () => {
   };
 
   return (
-    <Button variant="secondary" onClick={clickHandler}>
+    <Button variant="secondary" onClick={clickHandler} className="md:w-40">
       Clear Filters
     </Button>
   );

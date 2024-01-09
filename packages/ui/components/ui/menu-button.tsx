@@ -8,7 +8,7 @@ interface MenuButtonProps extends Omit<ButtonProps, "variant"> {
 
 export const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(({ children, className, icon, ...props }, ref) => {
   return (
-    <Button ref={ref} variant="ghost" className={cn("flex w-full justify-end gap-4", className)} {...props}>
+    <Button ref={ref} variant="ghost" className={cn("py-6 sm:py-0 flex w-full justify-end gap-4", className)} {...props}>
       {children}
       {icon}
     </Button>

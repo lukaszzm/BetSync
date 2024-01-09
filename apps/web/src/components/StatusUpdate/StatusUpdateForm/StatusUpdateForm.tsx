@@ -68,7 +68,9 @@ export const StatusUpdateForm = ({ id, status, onUpdate }: StatusUpdateFormProps
 
         <ErrorAlert error={error} />
 
-        <Button isLoading={isLoading}>Update</Button>
+        <Button isLoading={isLoading} className="w-full sm:w-auto">
+          Update
+        </Button>
       </form>
     </Form>
   );

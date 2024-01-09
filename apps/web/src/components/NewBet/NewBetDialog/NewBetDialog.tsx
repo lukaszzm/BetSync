@@ -1,6 +1,16 @@
 "use client";
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@ui/components/dialog";
+import {
+  Hybrid,
+  HybridBody,
+  HybridClose,
+  HybridContent,
+  HybridFooter,
+  HybridHeader,
+  HybridTitle,
+  HybridTrigger,
+} from "@ui/components/hybrid";
+
 import { Button } from "@ui/components/button";
 import { useState } from "react";
 import { Plus } from "lucide-react";
@@ -12,22 +22,29 @@ interface NewBetProps {
 }
 
 export const NewBetDialog = ({ bookmakers }: NewBetProps) => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-      <DialogTrigger asChild>
+    <Hybrid open={isOpen} onOpenChange={setIsOpen}>
+      <HybridTrigger asChild>
         <Button size="lg" className="gap-2">
           <Plus className="w-5 h-5" />
           Add New Bet
         </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>New Bet</DialogTitle>
-        </DialogHeader>
-        <NewBetForm bookmakers={bookmakers} onAdd={() => setIsDialogOpen(false)} />
-      </DialogContent>
-    </Dialog>
+      </HybridTrigger>
+      <HybridContent>
+        <HybridHeader>
+          <HybridTitle>New Bet</HybridTitle>
+        </HybridHeader>
+        <HybridBody>
+          <NewBetForm bookmakers={bookmakers} onAdd={() => setIsOpen(false)} />
+        </HybridBody>
+        <HybridFooter>
+          <HybridClose asChild>
+            <Button variant="outline">Cancel</Button>
+          </HybridClose>
+        </HybridFooter>
+      </HybridContent>
+    </Hybrid>
   );
 };
