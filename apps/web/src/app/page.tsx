@@ -1,6 +1,6 @@
 import { Logo } from "@/components/Logo";
 import { authOptions } from "@/config/auth";
-import { ROUTES } from "@/config/routes";
+import { RoutePaths } from "@/config/routes";
 import { Button } from "@ui/components/button";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
@@ -10,16 +10,16 @@ export default async function Page() {
   const session = await getServerSession(authOptions);
 
   if (session) {
-    redirect(ROUTES.dashboard);
+    redirect(RoutePaths.dashboard);
   }
 
   return (
     <div className="min-h-screen bg-gradient-radial">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-          <Logo href={ROUTES.home} />
+          <Logo href={RoutePaths.home} />
           <Button asChild size="lg">
-            <Link href={ROUTES.signIn}> Login</Link>
+            <Link href={RoutePaths.signIn}> Login</Link>
           </Button>
         </nav>
       </header>
@@ -35,7 +35,7 @@ export default async function Page() {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Button asChild size="lg" className="font-semibold px-16">
-                <Link href={ROUTES.signUp}>Get Started</Link>
+                <Link href={RoutePaths.signUp}>Get Started</Link>
               </Button>
             </div>
           </div>

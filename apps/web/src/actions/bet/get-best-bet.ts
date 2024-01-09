@@ -1,7 +1,7 @@
 "use server";
 
 import { authOptions } from "@/config/auth";
-import { ROUTES } from "@/config/routes";
+import { RoutePaths } from "@/config/routes";
 import type { Bet } from "@/interfaces/bet";
 import { apiFetch } from "@/utils/apiFetch";
 import { getServerSession } from "next-auth";
@@ -9,7 +9,7 @@ import { getServerSession } from "next-auth";
 export const getBestBet = async (): Promise<Bet | null> => {
   const session = await getServerSession(authOptions);
 
-  const res = await apiFetch(ROUTES.best, {
+  const res = await apiFetch(RoutePaths.best, {
     method: "GET",
     headers: {
       authorization: `Bearer ${session?.tokens.access_token}`,

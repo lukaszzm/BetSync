@@ -1,7 +1,7 @@
 "use server";
 
 import { authOptions } from "@/config/auth";
-import { ROUTES } from "@/config/routes";
+import { RoutePaths } from "@/config/routes";
 import type { BetWithBookmaker } from "@/interfaces/bet";
 import type { PaginationResponse } from "@/interfaces/pagination-response";
 import { apiFetch } from "@/utils/apiFetch";
@@ -20,7 +20,7 @@ export const getBets = async (params?: QueryParams): Promise<PaginationResponse<
 
   const queryParams = new URLSearchParams(params as Record<string, string>);
 
-  const res = await apiFetch(`${ROUTES.bet}?${queryParams.toString()}`, {
+  const res = await apiFetch(`${RoutePaths.bet}?${queryParams}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${session?.tokens.access_token}`,

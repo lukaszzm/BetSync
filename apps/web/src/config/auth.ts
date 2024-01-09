@@ -1,6 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { ROUTES } from "./routes";
+import { RoutePaths } from "./routes";
 import { apiFetch } from "@/utils/apiFetch";
 
 export const authOptions: NextAuthOptions = {
@@ -12,7 +12,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password", placeholder: "Enter your password" },
       },
       async authorize(credentials) {
-        const res = await apiFetch(ROUTES.apiSignIn, {
+        const res = await apiFetch(RoutePaths.apiSignIn, {
           method: "POST",
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" },
@@ -45,6 +45,6 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: ROUTES.signIn,
+    signIn: RoutePaths.signIn,
   },
 };

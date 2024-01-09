@@ -1,7 +1,7 @@
 "use server";
 
 import { authOptions } from "@/config/auth";
-import { ROUTES } from "@/config/routes";
+import { RoutePaths } from "@/config/routes";
 import { ServerAction } from "@/interfaces/server-action";
 import { UserLimitValues } from "@/schemas/userLimitSchema";
 import { apiFetch } from "@/utils/apiFetch";
@@ -12,7 +12,7 @@ import { revalidateTag } from "next/cache";
 export const setUserLimit: ServerAction<UserLimitValues, string> = async values => {
   const session = await getServerSession(authOptions);
 
-  const res = await apiFetch(ROUTES.userLimit, {
+  const res = await apiFetch(RoutePaths.userLimit, {
     method: "POST",
     body: JSON.stringify(values),
     headers: {

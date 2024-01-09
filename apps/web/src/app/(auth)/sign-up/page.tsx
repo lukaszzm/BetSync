@@ -1,6 +1,6 @@
 import { AuthSeparator } from "@/components/Auth/AuthSeparator";
 import { SignUpForm } from "@/components/Auth/SignUpForm";
-import { ROUTES } from "@/config/routes";
+import { RoutePaths } from "@/config/routes";
 import Link from "next/link";
 
 export default function SignUpPage() {
@@ -10,7 +10,7 @@ export default function SignUpPage() {
       <AuthSeparator />
       <p>
         Already have an account?{" "}
-        <Link href={ROUTES.signIn} className="font-semibold hover:underline">
+        <Link href={RoutePaths.signIn} className="font-semibold hover:underline">
           Login
         </Link>
       </p>

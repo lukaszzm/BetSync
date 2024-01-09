@@ -19,7 +19,7 @@ const APP_ROUTES = {
   bets: "/dashboard/bets",
 } as const satisfies Record<string, string>;
 
-export const ROUTES = {
+export const RoutePaths = {
   ...API_ROUTES,
   ...APP_ROUTES,
 };

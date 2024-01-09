@@ -55,7 +55,7 @@ export class UserService {
       throw new NotFoundException("User not found");
     }
 
-    const { password, ...rest } = user;
+    const { password: _password, ...rest } = user;
 
     return rest;
   }

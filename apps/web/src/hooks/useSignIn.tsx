@@ -1,4 +1,4 @@
-import { ROUTES } from "@/config/routes";
+import { RoutePaths } from "@/config/routes";
 import { CREDENTIALS_ERROR_MESSAGE, DEFAULT_ERROR_MESSAGE } from "@/constants";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -17,7 +17,7 @@ export const useSignIn = () => {
       const res = await signIn("credentials", {
         ...values,
         redirect: false,
-        callbackUrl: searchParams.get("callbackUrl") ?? ROUTES.dashboard,
+        callbackUrl: searchParams.get("callbackUrl") ?? RoutePaths.dashboard,
       });
 
       if (!res) {

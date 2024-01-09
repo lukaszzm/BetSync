@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ROUTES } from "./config/routes";
+import { RoutePaths } from "./config/routes";
 import { type JWT, encode, getToken } from "next-auth/jwt";
 import { withAuth } from "next-auth/middleware";
 import { apiFetch } from "./utils/apiFetch";
@@ -13,7 +13,7 @@ const size = 3933; // maximum size of each chunk
 const regex = new RegExp(".{1," + size + "}", "g"); // regex to split the token into chunks
 
 function signOut(req: NextRequest) {
-  const response = NextResponse.redirect(new URL(ROUTES.home, req.url));
+  const response = NextResponse.redirect(new URL(RoutePaths.home, req.url));
 
   req.cookies.getAll().forEach(cookie => {
     if (cookie.name.includes("next-auth.session-token")) {
@@ -30,7 +30,7 @@ function shouldUpdateToken(token: JWT) {
 
 async function refreshToken(token: JWT): Promise<JWT> {
   try {
-    const res = await apiFetch(ROUTES.refreshToken, {
+    const res = await apiFetch(RoutePaths.refreshToken, {
       method: "POST",
       headers: {
         authorization: `Refresh ${token.tokens.refresh_token}`,

@@ -46,3 +46,5 @@ export const UserLimits = forwardRef<HTMLButtonElement, UserLimitsProps>(({ curr
     </Hybrid>
   );
 });
+
+UserLimits.displayName = "UserLimits";

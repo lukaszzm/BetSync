@@ -37,3 +37,5 @@ export const SignOut = forwardRef<HTMLButtonElement>((_, ref) => {
     </AlertDialog>
   );
 });
+
+SignOut.displayName = "SignOut";
