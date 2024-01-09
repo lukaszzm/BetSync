@@ -15,7 +15,7 @@ export const StatusUpdate = ({ id, status }: StatusUpdateProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button size="icon" variant="ghost">
+        <Button size="icon" variant="ghost" disabled={status !== "pending"}>
           <Settings2 />
         </Button>
       </DialogTrigger>
