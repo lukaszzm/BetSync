@@ -8,6 +8,7 @@ import { Input } from "@ui/components/input";
 import { Button } from "@ui/components/button";
 import { useSignIn } from "@/hooks/useSignIn";
 import { ErrorAlert } from "@ui/components/error-alert";
+import { useTransition } from "react";
 
 export const SignInForm = () => {
   const form = useForm<SignInValues>({
@@ -18,15 +19,12 @@ export const SignInForm = () => {
     },
   });
 
-  const {
-    handleSubmit,
-    control,
-    formState: { isSubmitting },
-  } = form;
+  const { handleSubmit, control } = form;
 
+  const [isPending, startTransition] = useTransition();
   const { signIn, error } = useSignIn();
 
-  const onSubmit: SubmitHandler<SignInValues> = async values => await signIn(values);
+  const onSubmit: SubmitHandler<SignInValues> = values => startTransition(() => signIn(values));
 
   return (
     <Form {...form}>
@@ -58,7 +56,7 @@ export const SignInForm = () => {
           )}
         />
         <ErrorAlert error={error} />
-        <Button size="lg" type="submit" className="w-full" isLoading={isSubmitting}>
+        <Button size="lg" type="submit" className="w-full" isLoading={isPending}>
           Sign In
         </Button>
       </form>

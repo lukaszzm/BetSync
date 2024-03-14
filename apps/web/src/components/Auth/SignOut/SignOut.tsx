@@ -14,9 +14,14 @@ import {
 } from "@ui/components/alert-dialog";
 import { LogOut } from "lucide-react";
 import { MenuButton } from "@ui/components/menu-button";
-import { forwardRef } from "react";
+import { forwardRef, useTransition } from "react";
+import { Button } from "@ui/components/ui/button";
 
 export const SignOut = forwardRef<HTMLButtonElement>((_, ref) => {
+  const [isPending, startTransition] = useTransition();
+
+  const signOutHandler = () => startTransition(() => signOut());
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -31,7 +36,11 @@ export const SignOut = forwardRef<HTMLButtonElement>((_, ref) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => signOut()}>Sign Out</AlertDialogAction>
+          <AlertDialogAction asChild>
+            <Button onClick={signOutHandler} isLoading={isPending}>
+              Sign Out
+            </Button>
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

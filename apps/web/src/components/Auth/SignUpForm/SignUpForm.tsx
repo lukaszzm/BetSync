@@ -9,6 +9,7 @@ import { ErrorAlert } from "@ui/components/error-alert";
 import { type SignUpValues, signUpSchema } from "@/schemas/signUpSchema";
 import type { SubmitHandler } from "react-hook-form";
 import { useSignUp } from "@/hooks/useSignUp";
+import { useTransition } from "react";
 
 export const SignUpForm = () => {
   const form = useForm<SignUpValues>({
@@ -20,15 +21,12 @@ export const SignUpForm = () => {
     },
   });
 
-  const {
-    handleSubmit,
-    control,
-    formState: { isSubmitting },
-  } = form;
+  const { handleSubmit, control } = form;
 
+  const [isPending, startTransition] = useTransition();
   const { signUp, error } = useSignUp();
 
-  const onSubmit: SubmitHandler<SignUpValues> = async values => await signUp(values);
+  const onSubmit: SubmitHandler<SignUpValues> = values => startTransition(() => signUp(values));
 
   return (
     <Form {...form}>
@@ -73,7 +71,7 @@ export const SignUpForm = () => {
           )}
         />
         <ErrorAlert error={error} />
-        <Button size="lg" type="submit" className="w-full" isLoading={isSubmitting}>
+        <Button size="lg" type="submit" className="w-full" isLoading={isPending}>
           Sign Up
         </Button>
       </form>
