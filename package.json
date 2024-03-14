@@ -10,11 +10,11 @@
     "ui:add": "npm run -w ui ui:add --"
   },
   "devDependencies": {
-    "@turbo/gen": "^1.11.2",
-    "eslint": "^8.56.0",
+    "@turbo/gen": "^1.12.5",
+    "eslint": "^8.57.0",
     "eslint-config-custom": "file:eslint-config-custom",
     "prettier": "^3.1.1",
-    "turbo": "^1.11.2"
+    "turbo": "^1.12.5"
   },
   "packageManager": "npm@8.9.0",
   "workspaces": [
