@@ -2,14 +2,9 @@ import { RoutePaths } from "@/config/routes";
 import { Button } from "@ui/components/button";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { PropsWithChildren } from "react";
 
-interface BetsLayoutProps {
-  filters: React.ReactNode;
-  table: React.ReactNode;
-  children: React.ReactNode;
-}
-
-export default function BetsLayout({ filters, table, children }: BetsLayoutProps) {
+export default function BetsLayout({ children }: PropsWithChildren) {
   return (
     <>
       <Button asChild variant="ghost" size="icon" className="mr-auto">
@@ -18,8 +13,6 @@ export default function BetsLayout({ filters, table, children }: BetsLayoutProps
         </Link>
       </Button>
       {children}
-      {filters}
-      {table}
     </>
   );
 }

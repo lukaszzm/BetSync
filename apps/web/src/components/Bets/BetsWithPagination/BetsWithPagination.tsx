@@ -1,13 +1,13 @@
 import { getBets } from "@/actions/bet/get-bets";
-import { BetsTable } from "@/components/Bets/BetsTable";
-import { Pagination } from "@/components/Pagination";
 import { BetsSearchParams } from "@/interfaces/search-params";
+import { BetsTable } from "../BetsTable";
+import { Pagination } from "@/components/Pagination";
 
-interface PageProps {
+interface BetsWithPaginationProps {
   searchParams: BetsSearchParams;
 }
 
-export default async function BetsTablePage({ searchParams }: PageProps) {
+export const BetsWithPagination = async ({ searchParams }: BetsWithPaginationProps) => {
   const { data, meta } = await getBets(searchParams);
 
   return (
@@ -16,4 +16,4 @@ export default async function BetsTablePage({ searchParams }: PageProps) {
       <Pagination {...meta} />
     </div>
   );
-}
+};
