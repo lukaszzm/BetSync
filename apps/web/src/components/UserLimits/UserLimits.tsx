@@ -15,6 +15,7 @@ import {
   HybridTrigger,
 } from "@ui/components/hybrid";
 import { Button } from "@ui/components/button";
+import { UserLimitsCurrentInfo } from "./UserLimitsCurrentInfo";
 
 interface UserLimitsProps {
   currentLimit: number | null;
@@ -34,8 +35,9 @@ export const UserLimits = forwardRef<HTMLButtonElement, UserLimitsProps>(({ curr
         <HybridHeader>
           <HybridTitle>User Limits</HybridTitle>
         </HybridHeader>
-        <HybridBody>
-          <UserLimitsForm currentLimit={currentLimit} onSave={() => setIsOpen(false)} />
+        <HybridBody className="space-y-2">
+          <UserLimitsCurrentInfo currentLimit={currentLimit} />
+          <UserLimitsForm onSave={() => setIsOpen(false)} />
         </HybridBody>
         <HybridFooter>
           <HybridClose asChild>
