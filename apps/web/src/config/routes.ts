@@ -5,7 +5,6 @@ const API_ROUTES = {
   bet: "/bet",
   lastBet: "/bet/last",
   best: "/bet/best",
-  updateStatus: "/bet/status",
   userInfo: "/user/me",
   userLimit: "/user/limit",
   bookmaker: "/bookmaker",

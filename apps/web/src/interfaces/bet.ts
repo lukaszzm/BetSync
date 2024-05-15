@@ -8,9 +8,9 @@ export interface Bet {
   userId: string;
   bookmakerId: string;
   stake: number;
-  potentialReturn: number;
+  win: number;
   status: BetStatus;
-  prize: number;
+  link: string;
 }
 
 export interface BetWithBookmaker extends Bet {

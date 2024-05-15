@@ -1,3 +1,4 @@
+import { toCurrencyString } from "@/utils/toCurrencyString";
 import { PreviewCard } from "@ui/components/preview-card";
 
 interface SummaryBalanceProps {
@@ -20,7 +21,7 @@ export const SummaryBalance = ({ balance }: SummaryBalanceProps) => {
 
   return (
     <PreviewCard variant={variant} label="Balance: ">
-      {balance}
+      {toCurrencyString(balance)}
     </PreviewCard>
   );
 };

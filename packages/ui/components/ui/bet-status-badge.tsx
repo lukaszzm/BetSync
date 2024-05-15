@@ -2,16 +2,16 @@ import { cn } from "@ui/lib/utils";
 import { Badge, BadgeProps } from "./badge";
 
 interface BetStatusBadgeProps extends Omit<BadgeProps, "variant" | "children"> {
-  status: "pending" | "won" | "lost";
+  status: "win" | "lose" | "pending";
 }
 
 const getVariant = (status: BetStatusBadgeProps["status"]): BadgeProps["variant"] => {
   switch (status) {
     case "pending":
       return "info";
-    case "won":
+    case "win":
       return "success";
-    case "lost":
+    case "lose":
       return "destructive";
   }
 };
