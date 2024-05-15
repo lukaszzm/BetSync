@@ -11,7 +11,7 @@ type QueryParams = {
   order?: "asc" | "desc";
   page?: number;
   perPage?: number;
-  status?: "pending" | "won" | "lost";
+  status?: "pending" | "win" | "lose";
   bookmakerId?: string;
 };
 
