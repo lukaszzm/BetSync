@@ -149,7 +149,7 @@ export class BetService {
     });
   }
 
-  @Cron(CronExpression.EVERY_MINUTE, { name: "update_pending_bets" })
+  @Cron(CronExpression.EVERY_DAY_AT_4AM, { name: "update_pending_bets" })
   async updatePendingBets() {
     const pendingBets = await this.prisma.bet.findMany({
       where: {
