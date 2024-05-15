@@ -10,15 +10,14 @@ import { ErrorAlert } from "@ui/components/error-alert";
 import { toast } from "sonner";
 
 interface UserLimitsFormProps {
-  currentLimit: number | null;
   onSave: () => void;
 }
 
-export const UserLimitsForm = ({ currentLimit, onSave }: UserLimitsFormProps) => {
+export const UserLimitsForm = ({ onSave }: UserLimitsFormProps) => {
   const form = useForm<UserLimitValues>({
     resolver: zodResolver(userLimitSchema),
     defaultValues: {
-      limit: currentLimit ?? 0,
+      limit: 0,
     },
   });
 
@@ -39,15 +38,15 @@ export const UserLimitsForm = ({ currentLimit, onSave }: UserLimitsFormProps) =>
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <FormField
           control={control}
           name="limit"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Current limit</FormLabel>
+              <FormLabel>New limit</FormLabel>
               <FormControl>
-                <Input {...field} type="number" placeholder="Set your limit" />
+                <Input {...field} type="string" placeholder="Set your new limit" />
               </FormControl>
               <FormDescription>We will inform you when you exceed your limit</FormDescription>
               <FormMessage />
