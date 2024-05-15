@@ -2,10 +2,12 @@ import { BadRequestException, Injectable, NotFoundException } from "@nestjs/comm
 import { CreateBetDto } from "./dto/create-bet.dto";
 import { PrismaService } from "src/providers/prisma/prisma.service";
 import { UserService } from "src/user/user.service";
-import { Bet } from "@prisma/client";
+import { Bet, BetStatus } from "@prisma/client";
 import { PaginatorResult, paginator } from "src/providers/prisma/paginator";
 import { BetPaginationOptions, defaultBetPaginationOptions } from "./helpers/bet-pagination";
 import { UpdateStatusDto } from "./dto/update-status.dto";
+import { ScrapperService } from "src/scrapper/scrapper.service";
+import { Cron, CronExpression } from "@nestjs/schedule";
 
 const paginate = paginator({ perPage: 5 });
 
@@ -14,15 +16,22 @@ export class BetService {
   constructor(
     private prisma: PrismaService,
     private userService: UserService,
+    private scrapperService: ScrapperService,
   ) {}
 
   async create(dto: CreateBetDto, userId: string): Promise<Bet> {
-    const { bookmakerId, ...data } = dto;
+    const { bookmakerId, link } = dto;
+
+    const bet = await this.scrapperService.scrapeBet(dto.link);
+
+    if (!bet) {
+      throw new BadRequestException("Could not get bet information, check link and try again");
+    }
 
     const newBet = await this.prisma.bet.create({
       data: {
-        ...data,
-        prize: data.potentialReturn - data.stake,
+        link,
+        ...bet,
         user: {
           connect: {
             id: userId,
@@ -36,11 +45,11 @@ export class BetService {
       },
     });
 
-    if (newBet.status === "won") {
-      await this.userService.incrementBalance(userId, newBet.potentialReturn - newBet.stake);
+    if (newBet.status === BetStatus.win) {
+      await this.userService.incrementBalance(userId, newBet.win - newBet.stake);
     }
 
-    if (newBet.status === "lost") {
+    if (newBet.status === BetStatus.lose) {
       await this.userService.decrementBalance(userId, newBet.stake);
     }
 
@@ -90,10 +99,10 @@ export class BetService {
     const bestBet = await this.prisma.bet.findFirst({
       where: {
         userId,
-        status: "won",
+        status: "win",
       },
       orderBy: {
-        prize: "desc",
+        win: "desc",
       },
     });
 
@@ -107,27 +116,27 @@ export class BetService {
   async updateStatus(dto: UpdateStatusDto, userId: string): Promise<Bet> {
     const { id, status } = dto;
 
-    const bet = await this.prisma.bet.findFirst({
+    const currentBet = await this.prisma.bet.findFirst({
       where: {
         id,
         userId,
       },
     });
 
-    if (!bet) {
+    if (!currentBet) {
       throw new NotFoundException();
     }
 
-    if (bet.status !== "pending") {
+    if (currentBet.status !== BetStatus.pending) {
       throw new BadRequestException("Bet status cannot be updated");
     }
 
-    if (status === "won") {
-      await this.userService.incrementBalance(userId, bet.potentialReturn - bet.stake);
+    if (status === BetStatus.win) {
+      await this.userService.incrementBalance(userId, currentBet.win - currentBet.stake);
     }
 
-    if (status === "lost") {
-      await this.userService.decrementBalance(userId, bet.stake);
+    if (status === BetStatus.lose) {
+      await this.userService.decrementBalance(userId, currentBet.stake);
     }
 
     return await this.prisma.bet.update({
@@ -137,6 +146,30 @@ export class BetService {
       data: {
         status,
       },
+    });
+  }
+
+  @Cron(CronExpression.EVERY_MINUTE, { name: "update_pending_bets" })
+  async updatePendingBets() {
+    const pendingBets = await this.prisma.bet.findMany({
+      where: {
+        status: BetStatus.pending,
+      },
+    });
+
+    pendingBets.forEach(async bet => {
+      const scrapedBet = await this.scrapperService.scrapeBet(bet.link);
+
+      if (!scrapedBet || scrapedBet.status === BetStatus.pending) {
+        return;
+      }
+
+      const newData = {
+        ...scrapedBet,
+        id: bet.id,
+      } satisfies UpdateStatusDto;
+
+      await this.updateStatus(newData, bet.userId);
     });
   }
 }

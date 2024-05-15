@@ -15,15 +15,15 @@ export const BetsTable = ({ bets }: BetsTableProps) => {
           <TableHead>Created At</TableHead>
           <TableHead>Bookmaker</TableHead>
           <TableHead>Stake</TableHead>
-          <TableHead>Potential Return</TableHead>
+          <TableHead>Return</TableHead>
           <TableHead>Status</TableHead>
-          <TableHead>Update</TableHead>
+          <TableHead>Link</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {bets.length === 0 ? (
           <TableRow>
-            <TableCell colSpan={6} className="text-center py-8">
+            <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
               No bets found
             </TableCell>
           </TableRow>
