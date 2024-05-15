@@ -40,13 +40,13 @@ model Bet {
   bookmaker   Bookmaker @relation(fields: [bookmakerId], references: [id])
   bookmakerId String
   stake       Int
-  potentialReturn       Int
-  prize       Int 
+  win         Int
+  link        String
   status      BetStatus @default(pending)
 }
 
 enum BetStatus {
   pending
-  won
-  lost
+  win
+  lose
 }
