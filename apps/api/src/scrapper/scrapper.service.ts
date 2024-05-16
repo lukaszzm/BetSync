@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { BetStatus } from "@prisma/client";
 import puppeteer, { Page } from "puppeteer";
 
 @Injectable()
 export class ScrapperService {
-  constructor() {}
+  constructor(private configService: ConfigService) {}
 
   private async acceptCookies(page: Page): Promise<void> {
     const cookiesButton = await page.$("#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll");
@@ -77,10 +78,14 @@ export class ScrapperService {
   }
 
   async scrapeBet(link: string): Promise<{ status: BetStatus; stake: number; win: number } | null> {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      executablePath: this.configService.get<string>("PUPEETEER_EXECUTABLE_PATH"),
+    });
 
     try {
+      const page = await browser.newPage();
       await page.goto(link);
 
       await this.acceptCookies(page);
