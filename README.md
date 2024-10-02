@@ -9,7 +9,7 @@
 
 ## ️🔴 Live Preview
 
-Click on this <b>[link](https://bet-sync.vercel.app/)</b> to see a live app preview.
+Due to the cost of maintaining the application, live preview is currently not available.
 
 ## 🔐 Login Credentials
 
